@@ -33,7 +33,7 @@ def pltPer(X, y, W):
 def main():
     itlst = []
     #for x in range(100):
-    N = 20
+    N = 100
 
         # data    
     X, y = make_blobs(n_samples=N, centers=2, n_features=2)

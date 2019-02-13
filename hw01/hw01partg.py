@@ -24,7 +24,6 @@ def pltPer(X, y, W):
     plt.xlabel("$x_1$")
     plt.ylabel("$x_2$")
     plt.title("Perceptron Learning Algorithm")
-    plt.show()
 
 
 # In[57]:
@@ -32,30 +31,33 @@ def pltPer(X, y, W):
 
 def main():
     itlst = []
-    #for x in range(100):
-    N = 20
+    for x in range(100):
+        N = 100
 
         # data    
-    X, y = make_blobs(n_samples=N, centers=2, n_features=2)
-    y[y==0] = -1  # replace the zeros    
-    X = np.append(np.ones((N,1)), X, 1)   # add a column of ones
+        X, y = make_blobs(n_samples=N, centers=2, n_features=10)
+        y[y==0] = -1  # replace the zeros    
+        X = np.append(np.ones((N,1)), X, 1)   # add a column of ones
 
-    # initialize the weigths to zeros
-    w = np.zeros(3)
-    it = 0
-    pltPer(X,y,w)  # initial solution (bad!)
+        # initialize the weigths to zeros
+        w = np.zeros(11)
+        it = 0
+        #pltPer(X,y,w)  # initial solution (bad!)
 
         # Iterate until all points are correctly classified
-    while classification_error(w, X, y) != 0:
-        it += 1
-        # Pick random misclassified point
-        x, s = choose_miscl_point(w, X, y)
-        # Update weights
-        w += s*x
-    pltPer(X,y,w)
-    print("Total iterations: " + str(it))
-    itlst.append(it)
-    #print(itlst)
+        while classification_error(w, X, y) != 0:
+            it += 1
+            # Pick random misclassified point
+            x, s = choose_miscl_point(w, X, y)
+            # Update weights
+            w += s*x
+        #pltPer(X,y,w)
+        #print("Total iterations: " + str(it))
+        itlst.append(it)
+    print(itlst)
+    plt.hist(itlst)
+    plt.show()
+    
     
 def classification_error(w, X, y):
     err_cnt = 0
@@ -64,7 +66,7 @@ def classification_error(w, X, y):
         s = np.sign(w.T.dot(X[n])) # if this is zero, then :(
         if y[n] != s:
             err_cnt += 1
-    print(err_cnt)
+    #print(err_cnt)
     return err_cnt
 
 def choose_miscl_point(w, X, y):
